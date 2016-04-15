@@ -7,7 +7,7 @@ public class Jogador : MonoBehaviour {
 
 	// declarando variaveis
 
-	public float andar_j = 5.0f;
+	public float andar_j = 25.0f;
 	private bool direcao_Jogador = true;
 	private float movimento_X;
 	private Rigidbody2D rb2D;
@@ -19,7 +19,7 @@ public class Jogador : MonoBehaviour {
 	bool colidir_Plataforma = false;
 
 
-	void Start () {
+	void Start (){
 		rb2D = GetComponent<Rigidbody2D> ();
 	}
 
@@ -38,7 +38,7 @@ public class Jogador : MonoBehaviour {
 	// metodo que movimenta jogador
 	void MovimentarJogador () {
 		// atribuindo movimento horizontal a variavel X
-		movimento_X = Input.GetAxis ("Horizontal");
+		movimento_X = Input.GetAxis ("Horizontal") * 3.5f;
 
 		// calculando a velocidade em que o jogador anda 
 		rb2D.velocity = new Vector2 (movimento_X * andar_j, rb2D.velocity.y);
