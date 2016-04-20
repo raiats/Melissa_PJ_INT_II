@@ -14,9 +14,9 @@ public class Jogador : MonoBehaviour {
 
 	// variaveis relacionadas com detecção da plataforma
 	public Transform verificar_Plataforma;
-	float verificar_Plataforma_J = 0.2f;
+	//float verificar_Plataforma_J = 0.2f;
 	public LayerMask plataforma_ID_J;
-	bool colidir_Plataforma = false;
+	//bool colidir_Plataforma = false;
 
 
 	void Start (){
@@ -25,11 +25,11 @@ public class Jogador : MonoBehaviour {
 
 	void FixedUpdate(){
 		MovimentarJogador ();
-		colidir_Plataforma = Physics2D.OverlapCircle (verificar_Plataforma.position, verificar_Plataforma_J, plataforma_ID_J); 
+		//colidir_Plataforma = Physics2D. (verificar_Plataforma.position, verificar_Plataforma_J, plataforma_ID_J); 
 	}
 
 	void Update(){ 
-		if (colidir_Plataforma && Input.GetKeyDown(KeyCode.W) || colidir_Plataforma && Input.GetKeyDown(KeyCode.UpArrow)){
+		if (rb2D.velocity.y==0 && Input.GetKeyDown(KeyCode.W) || rb2D.velocity.y==0 && Input.GetKeyDown(KeyCode.UpArrow)){
 			Vector2 pular = new Vector2 (0.0f, 500.0f);
 			rb2D.AddForce (pular);
 		}
