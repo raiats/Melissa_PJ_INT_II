@@ -12,11 +12,17 @@ public class Jogador : MonoBehaviour {
 	private float movimento_X;
 	private Rigidbody2D rb2D;
 
+	// variaveis relacionadas ao tiro do antivirus
+
+	private float tempo_Antivirus = 0.2f; // tempo de acionamento
+	private float controle_Antivirus = 0f; // controle do acionamento 
+	public Transform disparar_Antivirus; // posição do antivirus
+	public GameObject antivirus; // objeto antivirus
+
 	// variaveis relacionadas com detecção da plataforma
+
 	public Transform verificar_Plataforma;
-	//float verificar_Plataforma_J = 0.2f;
 	public LayerMask plataforma_ID_J;
-	//bool colidir_Plataforma = false;
 
 
 	void Start (){
@@ -25,13 +31,24 @@ public class Jogador : MonoBehaviour {
 
 	void FixedUpdate(){
 		MovimentarJogador ();
-		//colidir_Plataforma = Physics2D. (verificar_Plataforma.position, verificar_Plataforma_J, plataforma_ID_J); 
 	}
 
 	void Update(){ 
 		if (rb2D.velocity.y==0 && Input.GetKeyDown(KeyCode.W) || rb2D.velocity.y==0 && Input.GetKeyDown(KeyCode.UpArrow)){
 			Vector2 pular = new Vector2 (0.0f, 500.0f);
 			rb2D.AddForce (pular);
+
+		}
+
+		// calcula o tempo para disparar 
+		if (controle_Antivirus > 0) {
+			controle_Antivirus -= Time.deltaTime;
+		}
+
+		if(Input.GetKey("space") || Input.GetKey(KeyCode.Space)){
+			DispararAntivirus ();
+
+			controle_Antivirus = tempo_Antivirus;
 		}
 	}
 
@@ -57,5 +74,17 @@ public class Jogador : MonoBehaviour {
 		Vector3 escala = GetComponent<Transform>().localScale;
 		escala.x *= -1;
 		GetComponent<Transform>().localScale = escala;
+	}
+
+	void DispararAntivirus(){
+		// controle de disparo e direção
+		if (controle_Antivirus <= 0f) {
+		
+			if(antivirus != null){
+				var copiar_Antivirus = Instantiate (antivirus, disparar_Antivirus.position, Quaternion.identity) as GameObject;
+				copiar_Antivirus.transform.localScale = this.transform.localScale;
+			}
+
+		}
 	}
 }

@@ -12,6 +12,8 @@ TagManager:
   - Inimigo
   - Plataforma
   - Virus
+  - PauseGame
+  - Malware
   layers:
   - Default
   - TransparentFX
